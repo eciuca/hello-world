@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.eciuca</groupId>
     <artifactId>dropwizard-seed</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -36,8 +36,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <docker-registry>localhost:8081/nexus</docker-registry>
-        <hello-world.capsule.env>local</hello-world.capsule.env>
+        <dropwizard-seed.capsule.env>local</dropwizard-seed.capsule.env>
         <docker-maven-plugin.pushImage>true</docker-maven-plugin.pushImage>
     </properties>
 
@@ -63,16 +62,18 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.10</version>
                 <configuration>
-                    <imageName>${docker-registry}/hello-world-${hello-world.capsule.env}:${revision}</imageName>
-                    <pushImage>${docker-maven-plugin.pushImage}</pushImage>
+		    <serverId>${docker-server-id}</serverId>
+		    <registryUrl>http://${docker-registry}/v2</registryUrl>
                     <baseImage>java</baseImage>
-                    <entryPoint>["java", "-jar" "/${project.build.finalName}-capsule-fat.jar]</entryPoint>
+                    <imageName>${docker-registry}/${groupId}/${artifactId}-${dropwizard-seed.capsule.env}:${project.version}</imageName>
+                    <pushImage>${docker-maven-plugin.pushImage}</pushImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule.jar"]</entryPoint>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
                             <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}-capsule-fat.jar</include>
+                            <include>${project.build.finalName}-capsule.jar</include>
                         </resource>
                     </resources>
                 </configuration>
