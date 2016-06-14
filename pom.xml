@@ -36,6 +36,7 @@
         </dependency>
     </dependencies>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dropwizard-seed.capsule.env>local</dropwizard-seed.capsule.env>
         <docker-maven-plugin.pushImage>true</docker-maven-plugin.pushImage>
     </properties>
