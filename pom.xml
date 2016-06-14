@@ -66,7 +66,7 @@
 		    <serverId>${docker-server-id}</serverId>
 		    <registryUrl>http://${docker-registry}/v2</registryUrl>
                     <baseImage>java</baseImage>
-                    <imageName>${docker-registry}/${groupId}/${artifactId}-${dropwizard-seed.capsule.env}:${project.version}</imageName>
+                    <imageName>${docker-registry}/${project.groupId}/${project.artifactId}-${dropwizard-seed.capsule.env}:${project.version}</imageName>
                     <pushImage>${docker-maven-plugin.pushImage}</pushImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule.jar"]</entryPoint>
                     <!-- copy the service's jar file from target into the root directory of the image -->
