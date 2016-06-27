@@ -12,8 +12,8 @@ public class HelloWorldModule implements ApplicationModule {
     }
 
     @Provides
-    @Named("name")
+    @Named("defaultName")
     public String providesName(HelloWorldConfiguration configuration) {
-        return configuration.getName();
+        return configuration.getDefaultName();
     }
 }

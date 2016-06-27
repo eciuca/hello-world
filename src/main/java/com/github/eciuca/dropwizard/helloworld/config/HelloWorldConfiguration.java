@@ -6,13 +6,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class HelloWorldConfiguration extends Configuration {
 
     @NotEmpty
-    private String name;
+    private String defaultName;
 
-    public String getName() {
-        return name;
+    public String getDefaultName() {
+        return defaultName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDefaultName(String defaultName) {
+        this.defaultName = defaultName;
     }
 }

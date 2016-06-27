@@ -11,5 +11,10 @@ logging:
   appenders:
     - type: console
       timeZone: CET
+    - type: file
+      timeZone: CET
+      currentLogFilename: logs/dw-seed/hello-world.log
+      archivedLogFilenamePattern: logs/dw-seed/hello-world-%d.log
+      archivedFileCount: 5
 
-name: "user"
+defaultName: "user"
