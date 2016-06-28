@@ -1,94 +1,64 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.eciuca</groupId>
+
+    <parent>
+        <groupId>com.github.eciuca</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
     <artifactId>dropwizard-seed</artifactId>
     <version>1.15-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dropwizard-seed.capsule.env>local</dropwizard-seed.capsule.env>
+        <docker-maven-plugin.pushImage>true</docker-maven-plugin.pushImage>
+        <docker-maven-plugin.version>0.4.10</docker-maven-plugin.version>
+        <junit.version>4.12</junit.version>
+        <microservice-bundle.version>0.1-10</microservice-bundle.version>
+        <rest-assured.version>2.7.0</rest-assured.version>
+        <slf4j-simple.version>1.7.12</slf4j-simple.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>be.fluid-it.microservice.bundle</groupId>
             <artifactId>microservice-bundle-core</artifactId>
-            <version>0.1-10</version>
+            <version>${microservice-bundle.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.12</version>
+            <version>${slf4j-simple.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
         </dependency>
         <dependency>
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>2.7.0</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>be.fluid-it.microservice.bundle</groupId>
             <artifactId>microservice-bundle-testing</artifactId>
-            <version>0.1-10</version>
+            <version>${microservice-bundle.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dropwizard-seed.capsule.env>local</dropwizard-seed.capsule.env>
-        <docker-maven-plugin.pushImage>true</docker-maven-plugin.pushImage>
-        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-	<nexus-staging-maven-plugin.version>1.5.1</nexus-staging-maven-plugin.version>
-        <capsule-maven-plugin.version>1.1.2</capsule-maven-plugin.version>
-        <docker-maven-plugin.version>0.4.10</docker-maven-plugin.version>
-    </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven-deploy-plugin.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven-release-plugin.version}</version>
-                <configuration>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <releaseProfiles>releases</releaseProfiles>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>${nexus-staging-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <serverId>nexus-snapshots</serverId>
-                    <nexusUrl>http://localhost:8081/nexus</nexusUrl>
-                    <skipStaging>true</skipStaging>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>com.github.chrischristo</groupId>
                 <artifactId>capsule-maven-plugin</artifactId>
-                <version>${capsule-maven-plugin.version}</version>
                 <configuration>
                     <appClass>com.github.eciuca.dropwizard.helloworld.app.HelloWorldService</appClass>
                     <types>fat</types>
@@ -129,89 +99,10 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>releases</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>default-deploy</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <serverId>nexus-releases</serverId>
-                            <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
-                            <skipStaging>true</skipStaging>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>executable-capsule</id>
-            <activation>
-                <os>
-                    <family>unix</family>
-                </os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.github.chrischristo</groupId>
-                        <artifactId>capsule-maven-plugin</artifactId>
-                        <version>${capsule-maven-plugin.version}</version>
-                        <configuration>
-                            <chmod>true</chmod>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>docker</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     <scm>
         <url>scm:git:git@github.com:eciuca/dropwizard-seed.git</url>
         <connection>scm:git:git@github.com:eciuca/dropwizard-seed.git</connection>
         <developerConnection>scm:git:git@github.com:eciuca/dropwizard-seed.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://localhost:8081/nexus/repository/maven-releases</url>
-	    <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>http://localhost:8081/nexus/repository/maven-snapshots</url>
-	    <uniqueVersion>true</uniqueVersion>	
-        </snapshotRepository>
-    </distributionManagement>
 </project>
