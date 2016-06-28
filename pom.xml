@@ -153,6 +153,11 @@
             </build>
         </profile>
     </profiles>
+    <scm>
+        <url>https://github.com/eciuca/dropwizard-seed</url>
+        <connection>scm:git:git@github.com:eciuca/dropwizard-seed.git</connection>
+        <developerConnection>scm:git:git@github.com:eciuca/dropwizard-seed.git</developerConnection>
+    </scm>
     <distributionManagement>
        <snapshotRepository>
           <id>nexus-snapshots</id>
