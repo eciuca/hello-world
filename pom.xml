@@ -63,12 +63,16 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.10</version>
                 <configuration>
-		    <serverId>${docker-server-id}</serverId>
-		    <registryUrl>http://${docker-registry}/v2</registryUrl>
-                    <baseImage>java</baseImage>
+		            <serverId>${docker-server-id}</serverId>
                     <imageName>${docker-registry}/${project.groupId}/${project.artifactId}-${dropwizard-seed.capsule.env}:${project.version}</imageName>
-                    <pushImage>${docker-maven-plugin.pushImage}</pushImage>
+                    <baseImage>java</baseImage>
+                    <runs>
+                        <run>curl -L -O https://download.elastic.co/beats/filebeat/filebeat_1.2.3_amd64.deb</run>
+                        <run>dpkg -i filebeat_1.2.3_amd64.deb</run>
+                    </runs>
+                    <cmd>/etc/init.d/filebeat start</cmd>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule.jar"]</entryPoint>
+                    <pushImage>${docker-maven-plugin.pushImage}</pushImage>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
                         <resource>
