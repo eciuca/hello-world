@@ -70,7 +70,7 @@
                         <run>curl -L -O https://download.elastic.co/beats/filebeat/filebeat_1.2.3_amd64.deb</run>
                         <run>dpkg -i filebeat_1.2.3_amd64.deb</run>
                     </runs>
-                    <cmd>/etc/init.d/filebeat start</cmd>
+                    <cmd>["/etc/init.d/filebeat", "start"]</cmd>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule.jar"]</entryPoint>
                     <pushImage>${docker-maven-plugin.pushImage}</pushImage>
                     <!-- copy the service's jar file from target into the root directory of the image -->
