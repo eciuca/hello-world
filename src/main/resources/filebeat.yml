@@ -1,0 +1,11 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - "logs/dw-seed/*.log"
+output:
+  logstash:
+    hosts: ["elk:5044"]
+
+    # Optional load balance the events between the Logstash hosts
+    #loadbalance: true
