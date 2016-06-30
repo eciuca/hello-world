@@ -84,18 +84,18 @@
                         <run>curl -L -O https://download.elastic.co/beats/filebeat/filebeat_1.2.3_amd64.deb</run>
                         <run>dpkg -i filebeat_1.2.3_amd64.deb</run>
                     </runs>
-                    <cmd>["/etc/init.d/filebeat", "start"]</cmd>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule.jar"]</entryPoint>
+                    <cmd>["/etc/init.d/filebeat", "-c", "/${project.artifactId}_home/etc/filebeat/filebeat.yml", "start"]</cmd>
+                    <entryPoint>["java", "-jar", "/${project.artifactId}_home/${project.build.finalName}-capsule.jar"]</entryPoint>
                     <pushImage>${docker-maven-plugin.pushImage}</pushImage>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
                         <resource>
-                            <targetPath>/</targetPath>
+                            <targetPath>/${project.artifactId}_home</targetPath>
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}-capsule.jar</include>
                         </resource>
                         <resource>
-                            <targetPath>/etc/filebeat</targetPath>
+                            <targetPath>/${project.artifactId}_home/etc/filebeat</targetPath>
                             <directory>${project.build.directory}/classes</directory>
                             <include>filebeat.yml</include>
                         </resource>
