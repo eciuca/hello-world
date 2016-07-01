@@ -20,6 +20,7 @@
         <microservice-bundle.version>0.1-10</microservice-bundle.version>
         <rest-assured.version>2.7.0</rest-assured.version>
         <slf4j-simple.version>1.7.12</slf4j-simple.version>
+        <dropwizard-gelf.version>0.9.2-5</dropwizard-gelf.version>
     </properties>
 
     <dependencies>
@@ -34,6 +35,11 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j-simple.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.gini.dropwizard</groupId>
+            <artifactId>dropwizard-gelf</artifactId>
+            <version>${dropwizard-gelf.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

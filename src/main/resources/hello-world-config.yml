@@ -16,5 +16,10 @@ logging:
       currentLogFilename: logs/dw-seed/hello-world.log
       archivedLogFilenamePattern: logs/dw-seed/hello-world-%d.log
       archivedFileCount: 5
+    - type: gelf
+      host: udp:elk
+      extractStackTrace: true
+      filterStackTrace: true
+      includeFullMDC: true
 
 defaultName: "user"
