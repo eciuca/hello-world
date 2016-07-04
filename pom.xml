@@ -95,11 +95,6 @@
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}-capsule.jar</include>
                         </resource>
-                        <resource>
-                            <targetPath>/${project.artifactId}_home/etc/filebeat</targetPath>
-                            <directory>${project.build.directory}/classes</directory>
-                            <include>filebeat.yml</include>
-                        </resource>
                     </resources>
                 </configuration>
             </plugin>
