@@ -11,12 +11,5 @@ logging:
   appenders:
     - type: console
       timeZone: CEST
-    - type: gelf
-      host: udp:elk
-      extractStackTrace: true
-      filterStackTrace: true
-      includeFullMDC: true
-      additionalFields:
-        type: "dw_gelf_logs"
 
 defaultName: "user"
