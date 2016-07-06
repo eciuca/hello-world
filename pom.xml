@@ -83,7 +83,7 @@
                 <version>${docker-maven-plugin.version}</version>
                 <configuration>
                     <serverId>${docker-server-id}</serverId>
-		    <registryUrl>http://localhost/nexus/repository/docker-public/</registryUrl>
+		    <registryUrl>${nexus-url}/repository/docker-public/</registryUrl>
 		    <imageName>${docker-registry}/${project.groupId}/${project.artifactId}-${dropwizard-seed.capsule.env}</imageName>
                     <baseImage>java</baseImage>
                     <entryPoint>["java", "-jar", "/${project.artifactId}_home/${project.build.finalName}-capsule.jar"]</entryPoint>
