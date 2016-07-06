@@ -14,7 +14,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dropwizard-seed.capsule.env>local</dropwizard-seed.capsule.env>
-        <docker-maven-plugin.pushImage>true</docker-maven-plugin.pushImage>
+	<docker-maven-plugin.pushImage>true</docker-maven-plugin.pushImage>
+        <docker-maven-plugin.forceTags>true</docker-maven-plugin.forceTags>
         <docker-maven-plugin.version>0.4.10</docker-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <microservice-bundle.version>0.1-10</microservice-bundle.version>
@@ -82,12 +83,16 @@
                 <version>${docker-maven-plugin.version}</version>
                 <configuration>
                     <serverId>${docker-server-id}</serverId>
-                    <imageName>
-                        ${docker-registry}/${project.groupId}/${project.artifactId}-${dropwizard-seed.capsule.env}:${project.version}
-                    </imageName>
+		    <registryUrl>http://localhost/nexus/repository/docker-public/</registryUrl>
+		    <imageName>${docker-registry}/${project.groupId}/${project.artifactId}-${dropwizard-seed.capsule.env}</imageName>
                     <baseImage>java</baseImage>
                     <entryPoint>["java", "-jar", "/${project.artifactId}_home/${project.build.finalName}-capsule.jar"]</entryPoint>
-                    <pushImage>${docker-maven-plugin.pushImage}</pushImage>
+		    <pushImage>${docker-maven-plugin.pushImage}</pushImage>
+		    <forceTags>${docker-maven-plugin.forceTags}</forceTags>
+		    <imageTags>
+			<imageTag>${project.version}</imageTag>
+			<imageTag>latest</imageTag>
+		    </imageTags>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>
                         <resource>
