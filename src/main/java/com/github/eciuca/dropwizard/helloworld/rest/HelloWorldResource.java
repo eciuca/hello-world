@@ -28,7 +28,7 @@ public class HelloWorldResource {
     @Timed
     public String helloWorld() {
         LOG.info("Hello! received from {}", defaultName);
-        return "Hello, " + defaultName + "!";
+        return "Hello, " + defaultName + "!!!";
     }
 
     @GET
@@ -36,6 +36,6 @@ public class HelloWorldResource {
     @Path("/{name}")
     public String helloWorld(@PathParam("name") String name) {
         LOG.info("Hello! received from {}", name);
-        return "Hello, " + name + "!";
+        return "Hello, " + name + "!!!";
     }
 }
