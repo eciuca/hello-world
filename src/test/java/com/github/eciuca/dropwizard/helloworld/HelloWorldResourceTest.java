@@ -24,6 +24,6 @@ public class HelloWorldResourceTest {
 
         response.then().statusCode(200);
         final String responseText = response.getBody().asString();
-        Assert.assertEquals("Hello, user!", responseText);
+        Assert.assertEquals("Hello, user!!!", responseText);
     }
 }
